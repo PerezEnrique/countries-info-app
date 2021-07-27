@@ -1,10 +1,14 @@
 import React from 'react';
+import {IconContext} from "react-icons";
+import {IoMoonOutline} from "react-icons/io5"
 
 export default function Header() {
     return (
-        <header className="header">
-            <h1>Countries info</h1>
-            <button>Dark mode</button>
-        </header>
+        <IconContext.Provider value={{className: "header__btn__icon"}}>
+            <header className="header">
+                <h1>Countries info</h1>
+                <button className="header__btn"><IoMoonOutline/>Dark mode</button>
+            </header>
+        </IconContext.Provider>
     )
 }
