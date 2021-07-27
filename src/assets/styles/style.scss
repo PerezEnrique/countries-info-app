@@ -5,6 +5,15 @@ $elements-dark: hsl(209, 23%, 22%);
 $primary-text: hsl(200, 15%, 8%);
 $secondary-text: hsl(0, 0%, 52%);
 $primary-text-dark: hsl(0, 0%, 100%);
+$elements-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+
+@mixin icon-style($top, $margin-right, $font-size, $color: inherit){
+    position: relative;
+    top: $top;
+    margin-right: $margin-right;
+    font-size: $font-size;
+    color: $color;
+}
 
 * {
     box-sizing: border-box;
@@ -19,11 +28,13 @@ body {
 .header {
     padding: 1rem 5%;
     background-color: $elements-light;
-    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: $elements-shadow;
     display: flex;
     justify-content: space-between;
+    // letter-spacing: 0.5px;
     & h1 {
         font-size: 1rem;
+        // font-weight: 800;
     }
 
     &__btn {
@@ -32,13 +43,34 @@ body {
         background-color: transparent;
         font-family: Nunito-sans, sans-serif;
         font-weight: 600;
+        // letter-spacing: inherit;
         cursor: pointer;
         &__icon {
-            position: relative;
-            top: 2px;
-            margin-right: 0.25rem;
-            font-size: 1rem;
+            @include icon-style(2px, 0.25rem, 1rem);
         }
     }
 }
 
+.search-box {
+    width: 90%;
+    padding: 1rem 5%;
+    margin: 25px auto 0;
+    border-radius: 5px;
+    box-shadow: $elements-shadow;
+    background-color: $elements-light;
+    display: flex;
+    align-items: center;
+    
+    &__icon {
+        @include icon-style(-2px, 0.5rem, 1.5rem, $secondary-text);
+    }
+    
+    &__input {
+        width: 85%;
+        border: none;
+        outline: none;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        color: $secondary-text;
+    }
+}
