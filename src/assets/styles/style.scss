@@ -42,7 +42,19 @@ ul {
 	padding: 0;
 }
 
+img,
+picture > source {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+dd {
+	margin: 0;
+}
+
 .header {
+	margin-bottom: 25px;
 	padding: 1rem 5%;
 	background-color: $elements-light;
 	box-shadow: $elements-shadow;
@@ -71,7 +83,7 @@ ul {
 .search-box {
 	width: 90%;
 	padding: 1rem 5%;
-	margin: 25px auto 0;
+	margin: 0 auto 50px;
 	@include element-container-style();
 	display: flex;
 	align-items: center;
@@ -92,7 +104,7 @@ ul {
 }
 
 .filter {
-	margin-top: 50px;
+	margin-bottom: 40px;
 	margin-left: 5%;
 	max-width: 15rem;
 
@@ -133,6 +145,47 @@ ul {
 
 				&:hover {
 					background-color: $background-light;
+				}
+			}
+		}
+	}
+}
+
+.card-grid {
+	width: 80%;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
+	column-gap: 10px;
+}
+
+.card {
+	max-width: 295px;
+	margin-bottom: 40px;
+	@include element-container-style();
+	overflow: hidden;
+
+	&__body {
+		&__text {
+			width: 90%;
+			margin: 40px auto;
+
+			& h2 {
+				font-size: 1.25rem;
+			}
+
+			& .desc-list {
+				font-size: 0.9rem;
+
+				&__item {
+					display: flex;
+					justify-content: start;
+
+					&__term {
+						margin-right: 0.25rem;
+						margin-bottom: 5px;
+						font-weight: 600;
+					}
 				}
 			}
 		}
