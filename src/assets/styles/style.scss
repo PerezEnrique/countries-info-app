@@ -1,17 +1,24 @@
-$background-light: hsl(0, 0%, 98%);
-$background-dark: hsl(207, 26%, 17%);
-$elements-light: hsl(0, 0%, 100%);
-$elements-dark: hsl(209, 23%, 22%);
-$primary-text: hsl(200, 15%, 8%);
-$secondary-text: hsl(0, 0%, 52%);
-$primary-text-dark: hsl(0, 0%, 100%);
-$elements-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1);
-$primary-font: "Nunito sans", sans-serif;
+//VARIABLES
+:root {
+	--background: hsl(0, 0%, 98%);
+	--elements: hsl(0, 0%, 100%);
+	--primary-text: hsl(200, 15%, 8%);
+	--secondary-text: hsl(0, 0%, 52%);
+	--elements-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+	--primary-font: "Nunito sans", sans-serif;
+}
 
+:root.dark-theme {
+	--background: hsl(207, 26%, 17%);
+	--elements: hsl(209, 23%, 22%);
+	--primary-text: hsl(0, 0%, 100%);
+}
+
+//SASS MIXINS
 @mixin element-container-style() {
 	border-radius: 5px;
-	box-shadow: $elements-shadow;
-	background-color: $elements-light;
+	box-shadow: var(--elements-shadow);
+	background-color: var(--elements);
 }
 
 @mixin icon-style(
@@ -27,14 +34,16 @@ $primary-font: "Nunito sans", sans-serif;
 	color: $color;
 }
 
+//RESETTING SOME CSS STYLES
 * {
 	box-sizing: border-box;
 }
 
 body {
 	margin: 0;
-	font-family: $primary-font;
-	background-color: $background-light;
+	font-family: var(--primary-font);
+	background-color: var(--background);
+	color: var(--primary-text);
 }
 
 ul {
@@ -53,26 +62,29 @@ dd {
 	margin: 0;
 }
 
+//STYLING
 .header {
 	margin-bottom: 25px;
 	padding: 1rem 5%;
-	background-color: $elements-light;
-	box-shadow: $elements-shadow;
+	background-color: var(--elements);
+	box-shadow: var(--elements-shadow);
 	display: flex;
 	justify-content: space-between;
 	& h1 {
 		font-size: 1.25rem;
 		font-weight: 800;
+		//inheriting color from body
 	}
 
 	&__btn {
 		position: relative;
 		border: none;
 		background-color: transparent;
-		font-family: $primary-font;
+		font-family: var(--primary-font);
 		font-size: 0.9rem;
 		font-weight: 600;
 		cursor: pointer;
+		color: var(--primary-text);
 		&__icon {
 			@include icon-style(relative, margin-right, 0.25rem, 1rem);
 			top: 2px;
@@ -89,7 +101,7 @@ dd {
 	align-items: center;
 
 	&__icon {
-		@include icon-style(relative, margin-right, 0.5rem, 1.5rem, $secondary-text);
+		@include icon-style(relative, margin-right, 0.5rem, 1.5rem, var(--secondary-text));
 		top: -2px;
 	}
 
@@ -98,7 +110,7 @@ dd {
 		border: none;
 		outline: none;
 		font-size: 0.8rem;
-		color: $secondary-text;
+		color: var(--secondary-text);
 		letter-spacing: 0.25px;
 	}
 }
@@ -113,7 +125,7 @@ dd {
 		padding: 1rem 15%;
 		border: none;
 		outline: none;
-		font-family: $primary-font;
+		font-family: var(--primary-font);
 		font-size: 0.9rem;
 		font-weight: 600;
 		text-align: left;
@@ -144,7 +156,7 @@ dd {
 				cursor: pointer;
 
 				&:hover {
-					background-color: $background-light;
+					background-color: var(--background);
 				}
 			}
 		}
