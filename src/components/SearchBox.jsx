@@ -8,7 +8,7 @@ export default function SearchBox() {
 
 	return (
 		<IconContext.Provider value={{ className: "search-box__icon" }}>
-			<div className="search-box">
+			<div className="search-box" role="search">
 				<IoMdSearch />
 				<input
 					className="search-box__input"
@@ -16,6 +16,7 @@ export default function SearchBox() {
 					value={query}
 					onChange={(e) => setQuery(e.target.value)}
 					placeholder="Search for a country..."
+					aria-label="Search for a country"
 				/>
 			</div>
 		</IconContext.Provider>
