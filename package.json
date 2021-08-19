@@ -40,6 +40,9 @@
 		"testEnvironment": "jsdom",
 		"setupFilesAfterEnv": [
 			"<rootDir>/src/__test__/setupTests.js"
-		]
+		],
+		"moduleNameMapper": {
+			"\\.(jpg|jpeg|png|svg)$": "<rootDir>/src/__mocks__/imagesMock.js"
+		}
 	}
 }
