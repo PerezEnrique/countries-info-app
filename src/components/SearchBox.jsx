@@ -16,7 +16,6 @@ export default function SearchBox() {
 					value={query}
 					onChange={(e) => setQuery(e.target.value)}
 					placeholder="Search for a country..."
-					aria-label="Search for a country"
 				/>
 			</div>
 		</IconContext.Provider>

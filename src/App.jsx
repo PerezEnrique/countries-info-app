@@ -15,7 +15,6 @@ export default function App() {
 
 	useEffect(() => {
 		localStorage.setItem("dark-theme", darkTheme);
-		console.log("aplicador", darkTheme);
 		if (darkTheme) {
 			document.documentElement.classList.add("dark-theme");
 		} else {
