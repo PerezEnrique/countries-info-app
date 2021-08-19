@@ -5,10 +5,16 @@ import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 
 export default function Filter() {
 	const [showOptions, setShowOptions] = useState(false);
+
 	return (
 		<IconContext.Provider value={{ className: "filter__dropdown__icon" }}>
 			<div className="filter">
-				<button className="filter__dropdown" onClick={() => setShowOptions(!showOptions)}>
+				<button
+					className="filter__dropdown"
+					id="filter-dropdown"
+					onClick={() => setShowOptions(!showOptions)}
+					aria-expanded={!showOptions ? "false" : "true"}
+				>
 					Filter by region
 					{!showOptions ? <RiArrowDropDownLine /> : <RiArrowDropUpLine />}
 				</button>
@@ -18,6 +24,7 @@ export default function Filter() {
 							? "filter__dropdown__box"
 							: "filter__dropdown__box filter__dropdown__box--active"
 					}
+					aria-labelledby="filter-dropdown"
 				>
 					<li className="filter__dropdown__box__option" data-value="">
 						All
