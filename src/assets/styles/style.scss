@@ -6,6 +6,7 @@
 	--secondary-text: hsl(0, 0%, 52%);
 	--elements-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1);
 	--primary-font: "Nunito sans", sans-serif;
+	--filter-max-width: 15rem;
 }
 
 :root.dark-theme {
@@ -127,7 +128,7 @@ dd {
 .filter {
 	margin-bottom: 40px;
 	margin-left: 5%;
-	max-width: 15rem;
+	max-width: var(--filter-max-width);
 
 	&__dropdown {
 		width: 100%;
@@ -149,8 +150,12 @@ dd {
 
 		&__box {
 			display: none;
+			width: 100%;
+			max-width: var(--filter-max-width);
 			padding: 1rem 0;
 			border: none;
+			position: absolute;
+			z-index: 2;
 			@include element-container-style();
 
 			&--active {
