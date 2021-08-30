@@ -1,10 +1,16 @@
 import React from "react";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { IconContext } from "react-icons";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 
-export default function Filter() {
+export default function Filter({ items, selectedItem, handleSelection, criterion }) {
 	const [showOptions, setShowOptions] = useState(false);
+
+	const handleClick = (e) => {
+		handleSelection(e.target.dataset.value);
+		setShowOptions(false);
+	};
 
 	return (
 		<IconContext.Provider value={{ className: "filter__dropdown__icon" }}>
@@ -15,7 +21,7 @@ export default function Filter() {
 					onClick={() => setShowOptions(!showOptions)}
 					aria-expanded={!showOptions ? "false" : "true"}
 				>
-					Filter by region
+					{selectedItem === "All" ? `Filter by ${criterion}` : selectedItem}
 					{!showOptions ? <RiArrowDropDownLine /> : <RiArrowDropUpLine />}
 				</button>
 				<ul
@@ -26,24 +32,16 @@ export default function Filter() {
 					}
 					aria-labelledby="filter-dropdown"
 				>
-					<li className="filter__dropdown__box__option" data-value="">
-						All
-					</li>
-					<li className="filter__dropdown__box__option" data-value="africa">
-						Africa
-					</li>
-					<li className="filter__dropdown__box__option" data-value="america">
-						America
-					</li>
-					<li className="filter__dropdown__box__option" data-value="asia">
-						Asia
-					</li>
-					<li className="filter__dropdown__box__option" data-value="europe">
-						Europe
-					</li>
-					<li className="filter__dropdown__box__option" data-value="oceania">
-						Oceania
-					</li>
+					{items.map((item) => (
+						<li
+							key={uuidv4()}
+							className="filter__dropdown__box__option"
+							data-value={item}
+							onClick={handleClick}
+						>
+							{item}
+						</li>
+					))}
 				</ul>
 			</div>
 		</IconContext.Provider>

@@ -1,11 +1,11 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-axios.interceptors.response.use(null, (err) => {
+axios.interceptors.response.use(null, (error) => {
 	const expectedError =
-		err.response && err.response.status >= 400 && err.response.status < 500;
-	//err.response = The request was made and the server responded with a status code that falls out of the range of 2xx
-	//err.response.status >= 400 && err.response.status < 500 means Expected error
+		error.response && error.response.status >= 400 && error.response.status < 500;
+	//error.response = The request was made and the server responded with a status code that falls out of the range of 2xx
+	//error.response.status >= 400 && error.response.status < 500 means Expected error
 	if (!expectedError) {
 		return toast.error("Sorry, something went wrong", {
 			position: "top-right",
@@ -18,7 +18,7 @@ axios.interceptors.response.use(null, (err) => {
 		});
 	}
 
-	return Promise.reject(err); //So it can be handle by the "local" catch block
+	return Promise.reject(error); //So it can be handle by the "local" catch block
 });
 
 export default {
