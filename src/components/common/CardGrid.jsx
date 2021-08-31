@@ -1,6 +1,6 @@
 import React from "react";
 import CountryCard from "../CountryCard";
-import Loader from "../Loader.jsx";
+import Loader from "./Loader.jsx";
 
 export default function CardGrid({ loading, items }) {
 	return (
