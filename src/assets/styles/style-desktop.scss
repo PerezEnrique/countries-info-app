@@ -1,0 +1,15 @@
+@media (min-width: 1000px) {
+	.filters-section {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.card-grid {
+		grid-template-columns: repeat(auto-fit, minmax(285px, var(--card-max-width)));
+		justify-items: initial;
+		justify-content: space-between;
+		//Since columns are no longer setted to 1fr, they have a max-width, making them smaller than the parent container.
+		//This way we are able to use justify-content
+		//Items now use the whole width of the column, so justify-items is no longer necessary
+	}
+}

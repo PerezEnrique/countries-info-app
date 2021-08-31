@@ -8,6 +8,7 @@ import SearchBox from "./components/common/SearchBox.jsx";
 import Filter from "./components/common/Filter";
 import CardGrid from "./components/common/CardGrid";
 import "./assets/styles/style.scss";
+import "./assets/styles/style-desktop.scss";
 import "./assets/styles/fonts.scss";
 
 export default function App() {
@@ -73,17 +74,19 @@ export default function App() {
 				toggleTheme={() => setDarkTheme((prevTheme) => !prevTheme)}
 			/>
 			<ToastContainer />
-			<SearchBox
-				query={query}
-				handleQuery={setQuery}
-				placeholder="Search for a country..."
-			/>
-			<Filter
-				items={regions}
-				selectedItem={region}
-				handleSelection={setRegion}
-				criterion="region"
-			/>
+			<section className="filters-section">
+				<SearchBox
+					query={query}
+					handleQuery={setQuery}
+					placeholder="Search for a country..."
+				/>
+				<Filter
+					items={regions}
+					selectedItem={region}
+					handleSelection={setRegion}
+					criterion="region"
+				/>
+			</section>
 			<CardGrid loading={loading} items={countriesToDisplay} />
 		</Router>
 	);

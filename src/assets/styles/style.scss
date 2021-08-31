@@ -6,7 +6,9 @@
 	--secondary-text: hsl(0, 0%, 52%);
 	--elements-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1);
 	--primary-font: "Nunito sans", sans-serif;
-	--filter-max-width: 15rem;
+	--content-max-width: 1400px;
+	--filter-width: 15rem;
+	--card-max-width: 295px;
 }
 
 :root.dark-theme {
@@ -99,10 +101,17 @@ dd {
 	}
 }
 
+.filters-section {
+	width: 90%;
+	max-width: var(--content-max-width);
+	margin: 0 auto;
+}
+
 .search-box {
 	width: 90%;
+	max-width: 500px;
 	padding: 1rem 5%;
-	margin: 0 auto 50px;
+	margin-bottom: 40px;
 	@include element-container-style();
 	display: flex;
 	align-items: center;
@@ -132,13 +141,13 @@ dd {
 }
 
 .filter {
+	width: var(--filter-width);
 	margin-bottom: 40px;
-	margin-left: 5%;
-	max-width: var(--filter-max-width);
 
 	&__dropdown {
 		width: 100%;
 		padding: 1rem 15%;
+		margin-bottom: 5px;
 		border: none;
 		color: var(--primary-text);
 		outline: none;
@@ -158,7 +167,7 @@ dd {
 		&__box {
 			display: none;
 			width: 100%;
-			max-width: var(--filter-max-width);
+			max-width: var(--filter-width);
 			padding: 1rem 0;
 			border: none;
 			position: absolute;
@@ -185,16 +194,18 @@ dd {
 }
 
 .card-grid {
-	width: 80%;
+	width: 90%;
+	max-width: var(--content-max-width);
 	margin: 0 auto;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
-	column-gap: 10px;
+	grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+	justify-items: center;
+	column-gap: 15px;
 }
 
 .card {
-	max-width: 295px;
-	margin-bottom: 40px;
+	max-width: var(--card-max-width);
+	margin-bottom: 60px;
 	@include element-container-style();
 	overflow: hidden;
 
