@@ -7,6 +7,7 @@ import AllCountries from "./pages/AllCountries";
 import "./assets/styles/style.scss";
 import "./assets/styles/style-desktop.scss";
 import "./assets/styles/fonts.scss";
+import Country from "./pages/Country";
 
 export default function App() {
 	const [darkTheme, setDarkTheme] = useState(getThemeStatus() == "true" ? true : false);
@@ -26,6 +27,7 @@ export default function App() {
 				toggleTheme={() => setDarkTheme((prevTheme) => !prevTheme)}
 			/>
 			<Switch>
+				<Route path="/country/:id" component={Country} />
 				<Route exact path="/" component={AllCountries} />
 			</Switch>
 			<ToastContainer />

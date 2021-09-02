@@ -25,19 +25,6 @@
 	background-color: var(--elements);
 }
 
-@mixin icon-style(
-	$position,
-	$margin-direction,
-	$margin-value,
-	$font-size,
-	$color: inherit
-) {
-	position: $position;
-	#{$margin-direction}: $margin-value;
-	font-size: $font-size;
-	color: $color;
-}
-
 //RESETTING SOME CSS STYLES
 * {
 	box-sizing: border-box;
@@ -81,7 +68,7 @@ dd {
 	}
 
 	&__btn {
-		position: relative;
+		// position: relative;
 		border: none;
 		background-color: transparent;
 		font-family: var(--primary-font);
@@ -95,8 +82,10 @@ dd {
 			box-shadow: 0 0 0 2px var(--secondary-text);
 		}
 		&__icon {
-			@include icon-style(relative, margin-right, 0.25rem, 1rem);
+			position: relative;
 			top: 2px;
+			margin-right: 0.25rem;
+			font-size: 1rem;
 		}
 	}
 }
@@ -121,8 +110,11 @@ dd {
 	}
 
 	&__icon {
-		@include icon-style(relative, margin-right, 0.5rem, 1.5rem, var(--secondary-text));
+		position: relative;
 		top: -2px;
+		margin-right: 0.5rem;
+		font-size: 1.5rem;
+		color: var(--secondary-text);
 	}
 
 	&__input {
@@ -159,7 +151,8 @@ dd {
 		position: relative;
 		@include element-container-style();
 		&__icon {
-			@include icon-style(absolute, margin-right, 0, 1.7rem);
+			position: absolute;
+			font-size: 1.7rem;
 			top: 12.5px;
 			right: 8%;
 		}
@@ -232,6 +225,69 @@ dd {
 					}
 				}
 			}
+		}
+	}
+}
+
+.country-page {
+	width: 85%;
+	margin: 0 auto;
+}
+
+.btn-link {
+	display: inline-block;
+	padding: 0.5rem 2em; //em because the padding of elements using this class should depend on their font-size
+	margin-bottom: 20px;
+	@include element-container-style();
+	color: var(--primary-text);
+	text-decoration: none;
+}
+
+.go-back-link {
+	position: relative;
+	//next two properties will override the previous ones since these appear after
+	padding-left: 2.8rem; //for the icon.
+	margin-bottom: 40px;
+}
+
+.go-back-icon {
+	position: absolute;
+	top: 5px;
+	left: 1rem;
+	font-size: 1.8rem;
+}
+
+.country-article {
+	margin-bottom: 40px;
+	&__media {
+		margin-bottom: 40px;
+	}
+
+	&__text {
+		& h2 {
+			font-size: 1.5rem;
+		}
+
+		& .desc-list {
+			font-size: 0.9rem;
+			margin-bottom: 40px;
+
+			&__item {
+				display: flex;
+				justify-content: start;
+				margin-bottom: 7px;
+
+				&__term {
+					margin-right: 0.25rem;
+					margin-bottom: 5px;
+					font-weight: 600;
+				}
+			}
+		}
+
+		& .btn-link {
+			font-size: 0.9rem;
+			margin-right: 0.5rem;
 		}
 	}
 }
