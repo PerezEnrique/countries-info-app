@@ -1,10 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import belgFlag from "../dummy-assets/belg-flag.jpg";
+import Loader from "../components/common/Loader";
+import { v4 as uuidv4 } from "uuid";
 
-export default function Country() {
+export default function Country({ match, countries, loading }) {
+	const [country, setCountry] = useState({
+		flag: "",
+		name: "",
+		nativeName: "",
+		population: "",
+		region: "",
+		subregion: "",
+		capital: "",
+		topLevelDomain: [],
+		currencies: [],
+		languages: [],
+		borders: [],
+	});
+
+	//Find country will be used to get the country's data and to get the name of each border country
+	const findCountry = (code) => {
+		return countries.find((element) => element.alpha3Code === code.toUpperCase());
+	};
+
+	useEffect(() => {
+		if (loading) return;
+		setCountry(findCountry(match.params.code));
+	}, [countries, loading, match.params.code]);
+
+	const {
+		flag,
+		name,
+		nativeName,
+		population,
+		region,
+		subregion,
+		capital,
+		topLevelDomain,
+		currencies,
+		languages,
+		borders,
+	} = country;
+
 	return (
 		<div className="country-page">
 			<Link className="btn-link go-back-link" to="/">
@@ -14,74 +53,74 @@ export default function Country() {
 				Back
 			</Link>
 			<main>
-				<article className="country-article">
-					<section className="country-article__media">
-						<picture>
-							<img src={belgFlag} alt="Belgium's flag" />
-						</picture>
-					</section>
-					<section className="country-article__text">
-						<h2>Belgium</h2>
-						<dl className="desc-list">
-							<div className="desc-list__item">
-								<dt className="desc-list__item__term">Native Name:</dt>
-								<dd className="desc-list__item__detail">
-									{/*Number(population).toLocaleString()*/} Belgie
-								</dd>
-							</div>
-							<div className="desc-list__item">
-								<dt className="desc-list__item__term">Population:</dt>
-								<dd className="desc-list__item__detail">
-									{/* {Number(population).toLocaleString()} */}
-									11,319,511
-								</dd>
-							</div>
-							<div className="desc-list__item">
-								<dt className="desc-list__item__term">Region:</dt>
-								<dd className="desc-list__item__detail">{/*region*/}Europe</dd>
-							</div>
-							<div className="desc-list__item">
-								<dt className="desc-list__item__term">Sub Region:</dt>
-								<dd className="desc-list__item__detail">{/*capital*/}Western Europe</dd>
-							</div>
-							<div className="desc-list__item">
-								<dt className="desc-list__item__term">Capital:</dt>
-								<dd className="desc-list__item__detail">{/*capital*/}Brussels</dd>
-							</div>
-						</dl>
-						<dl className="desc-list">
-							<div className="desc-list__item">
-								<dt className="desc-list__item__term">Top Level Domain:</dt>
-								<dd className="desc-list__item__detail">
-									{/*Number(population).toLocaleString()*/}.be
-								</dd>
-							</div>
-							<div className="desc-list__item">
-								<dt className="desc-list__item__term">Currencies:</dt>
-								<dd className="desc-list__item__detail">
-									{/* {Number(population).toLocaleString()} */}
-									Euro
-								</dd>
-							</div>
-							<div className="desc-list__item">
-								<dt className="desc-list__item__term">Languages:</dt>
-								<dd className="desc-list__item__detail">
-									{/*region*/}Duth, French, German
-								</dd>
-							</div>
-						</dl>
-						<h3>Border Countries:</h3>
-						<Link className="btn-link" to="#">
-							France
-						</Link>
-						<Link className="btn-link" to="#">
-							Germany
-						</Link>
-						<Link className="btn-link" to="#">
-							Netherlands
-						</Link>
-					</section>
-				</article>
+				{loading ? (
+					<Loader />
+				) : (
+					<article className="country-article">
+						<section className="country-article__media">
+							<picture>
+								<img src={flag} alt={`${name}'s flag`} />
+							</picture>
+						</section>
+						<section className="country-article__text">
+							<h2>{name}</h2>
+							<dl className="desc-list">
+								<div className="desc-list__item">
+									<dt className="desc-list__item__term">Native Name:</dt>
+									<dd className="desc-list__item__detail">{nativeName}</dd>
+								</div>
+								<div className="desc-list__item">
+									<dt className="desc-list__item__term">Population:</dt>
+									<dd className="desc-list__item__detail">
+										{Number(population).toLocaleString()}
+									</dd>
+								</div>
+								<div className="desc-list__item">
+									<dt className="desc-list__item__term">Region:</dt>
+									<dd className="desc-list__item__detail">{region}</dd>
+								</div>
+								<div className="desc-list__item">
+									<dt className="desc-list__item__term">Sub Region:</dt>
+									<dd className="desc-list__item__detail">{subregion}</dd>
+								</div>
+								<div className="desc-list__item">
+									<dt className="desc-list__item__term">Capital:</dt>
+									<dd className="desc-list__item__detail">{capital}</dd>
+								</div>
+							</dl>
+							<dl className="desc-list">
+								<div className="desc-list__item">
+									<dt className="desc-list__item__term">Top Level Domain:</dt>
+									<dd className="desc-list__item__detail">{topLevelDomain.join(" ")}</dd>
+								</div>
+								<div className="desc-list__item">
+									<dt className="desc-list__item__term">Currencies:</dt>
+									<dd className="desc-list__item__detail">
+										{currencies.map((currencie, index) =>
+											index !== currencies.length - 1
+												? `${currencie.name},`
+												: currencie.name
+										)}
+									</dd>
+								</div>
+								<div className="desc-list__item">
+									<dt className="desc-list__item__term">Languages:</dt>
+									<dd className="desc-list__item__detail">
+										{languages.map((language, index) =>
+											index !== languages.length - 1 ? `${language.name},` : language.name
+										)}
+									</dd>
+								</div>
+							</dl>
+							<h3>Border Countries:</h3>
+							{borders.map((border) => (
+								<Link key={uuidv4()} className="btn-link" to={`/country/${border}`}>
+									{findCountry(border).name}
+								</Link>
+							))}
+						</section>
+					</article>
+				)}
 			</main>
 		</div>
 	);
