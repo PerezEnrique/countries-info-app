@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { getCountries } from "./services/countriesService";
 import { getThemeStatus } from "./services/themeService";
 import Header from "./components/Header.jsx";
 import AllCountries from "./pages/AllCountries";
+import Country from "./pages/Country";
 import "./assets/styles/style.scss";
 import "./assets/styles/style-desktop.scss";
 import "./assets/styles/fonts.scss";
-import Country from "./pages/Country";
 
 export default function App() {
+	const [countries, setCountries] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const [darkTheme, setDarkTheme] = useState(getThemeStatus() == "true" ? true : false);
+
+	useEffect(() => {
+		const setData = async () => {
+			setLoading(true);
+			const { data } = await getCountries();
+			setCountries(data);
+			setLoading(false);
+		};
+		setData();
+	}, []);
 
 	useEffect(() => {
 		if (darkTheme) {
@@ -27,8 +40,19 @@ export default function App() {
 				toggleTheme={() => setDarkTheme((prevTheme) => !prevTheme)}
 			/>
 			<Switch>
-				<Route path="/country/:id" component={Country} />
-				<Route exact path="/" component={AllCountries} />
+				<Route
+					path="/country/:code"
+					render={(props) => (
+						<Country {...props} countries={countries} loading={loading} />
+					)}
+				/>
+				<Route
+					exact
+					path="/"
+					render={(props) => (
+						<AllCountries {...props} countries={countries} loading={loading} />
+					)}
+				/>
 			</Switch>
 			<ToastContainer />
 		</Router>
