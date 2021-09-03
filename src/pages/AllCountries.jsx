@@ -19,23 +19,33 @@ export default function AllCountries({ countries, loading }) {
 
 	useEffect(() => {
 		if (countries.length < 1) return;
+		setCountriesToDisplay([...countries]);
+	}, [countries]);
+
+	useEffect(() => {
+		if (countries.length < 1) return;
+		if (query === "") return;
+
+		setRegion("All");
 		let filteredCountries = [...countries];
-
-		if (query !== "") {
-			filteredCountries = countries.filter((country) => {
-				const regex = new RegExp(query, "i");
-				return regex.test(country.name);
-			});
-		}
-
-		if (region !== "All") {
-			filteredCountries = countries.filter((country) => {
-				return country.region === region;
-			});
-		}
-
+		filteredCountries = countries.filter((country) => {
+			const regex = new RegExp(query, "i");
+			return regex.test(country.name);
+		});
 		setCountriesToDisplay(filteredCountries);
-	}, [countries, query, region]);
+	}, [countries, query]);
+
+	useEffect(() => {
+		if (countries.length < 1) return;
+		if (region === "All") return;
+
+		setQuery("");
+		let filteredCountries = [...countries];
+		filteredCountries = countries.filter((country) => {
+			return country.region === region;
+		});
+		setCountriesToDisplay(filteredCountries);
+	}, [countries, region]);
 
 	return (
 		<React.Fragment>
