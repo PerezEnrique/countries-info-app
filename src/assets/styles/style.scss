@@ -194,6 +194,10 @@ dd {
 	grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
 	justify-items: center;
 	column-gap: 15px;
+
+	&__no-item-message {
+		text-align: center;
+	}
 }
 
 .card {

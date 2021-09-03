@@ -66,7 +66,11 @@ export default function AllCountries({ countries, loading }) {
 					/>
 				</IconContext.Provider>
 			</section>
-			<CardGrid loading={loading} items={countriesToDisplay} />
+			<CardGrid
+				loading={loading}
+				items={countriesToDisplay}
+				noItemMessage={"Sorry, your search did not match any country :("}
+			/>
 		</React.Fragment>
 	);
 }
