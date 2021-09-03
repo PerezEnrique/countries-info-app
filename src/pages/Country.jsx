@@ -26,9 +26,9 @@ export default function Country({ match, countries, loading }) {
 	};
 
 	useEffect(() => {
-		if (loading) return;
+		if (countries.length < 1) return;
 		setCountry(findCountry(match.params.code));
-	}, [countries, loading, match.params.code]);
+	}, [countries, match.params.code]);
 
 	const {
 		flag,
