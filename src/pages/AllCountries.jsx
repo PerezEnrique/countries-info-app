@@ -37,7 +37,11 @@ export default function AllCountries({ countries, loading }) {
 
 	useEffect(() => {
 		if (countries.length < 1) return;
-		if (region === "All") return;
+		if (region === "All") {
+			let filteredCountries = [...countries];
+			setCountriesToDisplay(filteredCountries);
+			return;
+		}
 
 		setQuery("");
 		let filteredCountries = [...countries];
