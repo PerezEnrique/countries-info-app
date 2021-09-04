@@ -238,6 +238,11 @@ dd {
 	margin: 0 auto;
 }
 
+.heading-link {
+	text-decoration: none;
+	color: var(--primary-text);
+}
+
 .btn-link {
 	display: inline-block;
 	padding: 0.5rem 2em; //em because the padding of elements using this class should depend on their font-size

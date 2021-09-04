@@ -1,16 +1,25 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function CountryCard({ country: { flag, name, population, region, capital } }) {
+function CountryCard({
+	country: { flag, name, population, region, capital, alpha3Code },
+}) {
 	return (
 		<article className="card">
 			<section className="card__head">
-				<picture className="card__head__img">
-					<img src={flag} alt={`${name}'s flag`} />
-				</picture>
+				<Link to={`/country/${alpha3Code}`}>
+					<picture className="card__head__img">
+						<img src={flag} alt={`${name}'s flag image`} />
+					</picture>
+				</Link>
 			</section>
 			<section className="card__body">
 				<div className="card__body__text">
-					<h2>{name}</h2>
+					<h2>
+						<Link className="heading-link" to={`/country/${alpha3Code}`}>
+							{name}
+						</Link>
+					</h2>
 					<dl className="desc-list">
 						<div className="desc-list__item">
 							<dt className="desc-list__item__term">Population:</dt>
