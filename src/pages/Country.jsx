@@ -64,60 +64,72 @@ export default function Country({ match, countries, loading }) {
 						</section>
 						<section className="country-article__text">
 							<h2>{name}</h2>
-							<dl className="desc-list">
-								<div className="desc-list__item">
-									<dt className="desc-list__item__term">Native Name:</dt>
-									<dd className="desc-list__item__detail">{nativeName}</dd>
-								</div>
-								<div className="desc-list__item">
-									<dt className="desc-list__item__term">Population:</dt>
-									<dd className="desc-list__item__detail">
-										{Number(population).toLocaleString()}
-									</dd>
-								</div>
-								<div className="desc-list__item">
-									<dt className="desc-list__item__term">Region:</dt>
-									<dd className="desc-list__item__detail">{region}</dd>
-								</div>
-								<div className="desc-list__item">
-									<dt className="desc-list__item__term">Sub Region:</dt>
-									<dd className="desc-list__item__detail">{subregion}</dd>
-								</div>
-								<div className="desc-list__item">
-									<dt className="desc-list__item__term">Capital:</dt>
-									<dd className="desc-list__item__detail">{capital}</dd>
-								</div>
-							</dl>
-							<dl className="desc-list">
-								<div className="desc-list__item">
-									<dt className="desc-list__item__term">Top Level Domain:</dt>
-									<dd className="desc-list__item__detail">{topLevelDomain.join(" ")}</dd>
-								</div>
-								<div className="desc-list__item">
-									<dt className="desc-list__item__term">Currencies:</dt>
-									<dd className="desc-list__item__detail">
-										{currencies.map((currencie, index) =>
-											index !== currencies.length - 1
-												? `${currencie.name},`
-												: currencie.name
-										)}
-									</dd>
-								</div>
-								<div className="desc-list__item">
-									<dt className="desc-list__item__term">Languages:</dt>
-									<dd className="desc-list__item__detail">
-										{languages.map((language, index) =>
-											index !== languages.length - 1 ? `${language.name},` : language.name
-										)}
-									</dd>
-								</div>
-							</dl>
-							<h3>Border Countries:</h3>
-							{borders.map((border) => (
-								<Link key={uuidv4()} className="btn-link" to={`/country/${border}`}>
-									{findCountry(border).name}
-								</Link>
-							))}
+							<section className="country-article__text__desc-lists">
+								<dl className="desc-list">
+									<div className="desc-list__item">
+										<dt className="desc-list__item__term">Native Name:</dt>
+										<dd className="desc-list__item__detail">{nativeName}</dd>
+									</div>
+									<div className="desc-list__item">
+										<dt className="desc-list__item__term">Population:</dt>
+										<dd className="desc-list__item__detail">
+											{Number(population).toLocaleString()}
+										</dd>
+									</div>
+									<div className="desc-list__item">
+										<dt className="desc-list__item__term">Region:</dt>
+										<dd className="desc-list__item__detail">{region}</dd>
+									</div>
+									<div className="desc-list__item">
+										<dt className="desc-list__item__term">Sub Region:</dt>
+										<dd className="desc-list__item__detail">{subregion}</dd>
+									</div>
+									<div className="desc-list__item">
+										<dt className="desc-list__item__term">Capital:</dt>
+										<dd className="desc-list__item__detail">{capital}</dd>
+									</div>
+								</dl>
+								<dl className="desc-list">
+									<div className="desc-list__item">
+										<dt className="desc-list__item__term">Top Level Domain:</dt>
+										<dd className="desc-list__item__detail">
+											{topLevelDomain.join(" ")}
+										</dd>
+									</div>
+									<div className="desc-list__item">
+										<dt className="desc-list__item__term">Currencies:</dt>
+										<dd className="desc-list__item__detail">
+											{currencies.map((currencie, index) =>
+												index !== currencies.length - 1
+													? `${currencie.name},`
+													: currencie.name
+											)}
+										</dd>
+									</div>
+									<div className="desc-list__item">
+										<dt className="desc-list__item__term">Languages:</dt>
+										<dd className="desc-list__item__detail">
+											{languages.map((language, index) =>
+												index !== languages.length - 1
+													? `${language.name},`
+													: language.name
+											)}
+										</dd>
+									</div>
+								</dl>
+							</section>
+							<section className="country-article__text__border-countries">
+								<h3>Border Countries:</h3>
+								{borders.length < 1 ? (
+									<span>No border countries</span>
+								) : (
+									borders.map((border) => (
+										<Link key={uuidv4()} className="btn-link" to={`/country/${border}`}>
+											{findCountry(border).name}
+										</Link>
+									))
+								)}
+							</section>
 						</section>
 					</article>
 				)}
