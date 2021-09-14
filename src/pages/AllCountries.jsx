@@ -17,16 +17,18 @@ export default function AllCountries({ countries, loading }) {
 	const [query, setQuery] = useState("");
 	const [region, setRegion] = useState("All");
 
+	//set countries to display when countries prop changes
 	useEffect(() => {
 		if (countries.length < 1) return;
 		setCountriesToDisplay([...countries]);
 	}, [countries]);
 
+	//filter by query when query hook state changes
 	useEffect(() => {
 		if (countries.length < 1) return;
 		if (query === "") return;
 
-		setRegion("All");
+		setRegion("All"); //set filter by region to "all", to avoid user's confusion
 		let filteredCountries = [...countries];
 		filteredCountries = countries.filter((country) => {
 			const regex = new RegExp(query, "i");
@@ -35,15 +37,19 @@ export default function AllCountries({ countries, loading }) {
 		setCountriesToDisplay(filteredCountries);
 	}, [countries, query]);
 
+	//filter by region
 	useEffect(() => {
 		if (countries.length < 1) return;
+
+		//when filter is set to "all"... T
+		//his is specially important for cases when user re-sets filter to "all" after having filtered by something else before
 		if (region === "All") {
 			let filteredCountries = [...countries];
 			setCountriesToDisplay(filteredCountries);
 			return;
 		}
 
-		setQuery("");
+		setQuery(""); //cleans the query field, to avoid user's confusion
 		let filteredCountries = [...countries];
 		filteredCountries = countries.filter((country) => {
 			return country.region === region;
