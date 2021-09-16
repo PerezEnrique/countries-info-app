@@ -1,7 +1,11 @@
 import React from "react";
 
-function loader() {
-	return <div className="shapes-1"></div>;
+function Loader() {
+	return (
+		<div role="status" aria-live="polite" aria-label="loading">
+			<div className="shapes-1"></div>
+		</div>
+	);
 }
 
-export default loader;
+export default Loader;
