@@ -5,7 +5,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import Loader from "../components/common/Loader";
 import { v4 as uuidv4 } from "uuid";
 
-export default function Country({ match, countries, loading }) {
+export default function Country({ match, countries, loading, error }) {
 	const [country, setCountry] = useState({
 		flag: "",
 		name: "",
@@ -44,7 +44,9 @@ export default function Country({ match, countries, loading }) {
 		borders,
 	} = country;
 
-	return (
+	return error ? (
+		<p className="error-message">{error}</p>
+	) : (
 		<div className="country-page">
 			<Link className="btn-link go-back-link" to="/">
 				<IconContext.Provider value={{ className: "go-back-icon" }}>

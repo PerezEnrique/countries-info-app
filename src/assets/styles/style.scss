@@ -309,10 +309,8 @@ dd {
 	text-decoration: none;
 }
 
-.Toastify__toast--error {
-	font-family: var(--primary-font);
-	color: red;
-	@include element-container-style();
+.error-message {
+	text-align: center;
 }
 
 //LOADER (shout out to Temani Afif for creating this loader. https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje)

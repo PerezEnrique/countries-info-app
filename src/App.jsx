@@ -13,13 +13,18 @@ import "./assets/styles/fonts.scss";
 export default function App() {
 	const [countries, setCountries] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState("");
 	const [darkTheme, setDarkTheme] = useState(getThemeStatus() == "true" ? true : false);
 
 	useEffect(() => {
 		const setData = async () => {
-			setLoading(true);
-			const { data } = await getCountries();
-			setCountries(data);
+			try {
+				setLoading(true);
+				const { data } = await getCountries();
+				setCountries(data);
+			} catch (ex) {
+				setError("Sorry, something went wrong, please try refreshing the page later");
+			}
 			setLoading(false);
 		};
 		setData();
@@ -43,14 +48,19 @@ export default function App() {
 				<Route
 					path="/country/:code"
 					render={(props) => (
-						<Country {...props} countries={countries} loading={loading} />
+						<Country {...props} countries={countries} loading={loading} error={error} />
 					)}
 				/>
 				<Route
 					exact
 					path="/"
 					render={(props) => (
-						<AllCountries {...props} countries={countries} loading={loading} />
+						<AllCountries
+							{...props}
+							countries={countries}
+							loading={loading}
+							error={error}
+						/>
 					)}
 				/>
 			</Switch>

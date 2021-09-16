@@ -4,7 +4,7 @@ import SearchBox from "../components/common/SearchBox";
 import Filter from "../components/common/Filter";
 import CardGrid from "../components/common/CardGrid";
 
-export default function AllCountries({ countries, loading }) {
+export default function AllCountries({ countries, loading, error }) {
 	const [regions, setRegions] = useState([
 		"All",
 		"Africa",
@@ -57,7 +57,9 @@ export default function AllCountries({ countries, loading }) {
 		setCountriesToDisplay(filteredCountries);
 	}, [countries, region]);
 
-	return (
+	return error ? (
+		<p className="error-message">{error}</p>
+	) : (
 		<React.Fragment>
 			<section className="filters-section">
 				<IconContext.Provider value={{ className: "search-box__icon" }}>
