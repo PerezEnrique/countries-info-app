@@ -64,7 +64,6 @@ export default function App() {
 					)}
 				/>
 			</Switch>
-			<ToastContainer />
 		</Router>
 	);
 }
