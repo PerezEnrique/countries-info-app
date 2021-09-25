@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import CountriesContext from "../contexts/CountriesContext";
 import { IconContext } from "react-icons";
 import SearchBox from "../components/common/SearchBox";
 import Filter from "../components/common/Filter";
 import CardGrid from "../components/common/CardGrid";
 
-export default function AllCountries({ countries, loading, error }) {
+export default function AllCountries() {
+	const { countries, loading, error } = useContext(CountriesContext);
+
 	const [regions, setRegions] = useState([
 		"All",
 		"Africa",

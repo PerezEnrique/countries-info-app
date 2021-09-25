@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import CountriesContext from "../contexts/CountriesContext";
 import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Loader from "../components/common/Loader";
 import { v4 as uuidv4 } from "uuid";
 
-export default function Country({ match, countries, loading, error }) {
+export default function Country({ match }) {
+	const { countries, loading, error } = useContext(CountriesContext);
+
 	const [country, setCountry] = useState({
 		flag: "",
 		name: "",

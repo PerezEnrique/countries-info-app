@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import { getCountries } from "./services/countriesService";
+import { CountriesProvider } from "./contexts/CountriesContext";
 import { getThemeStatus } from "./services/themeService";
 import Header from "./components/Header.jsx";
 import AllCountries from "./pages/AllCountries";
@@ -11,24 +10,7 @@ import "./assets/styles/style-desktop.scss";
 import "./assets/styles/fonts.scss";
 
 export default function App() {
-	const [countries, setCountries] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState("");
 	const [darkTheme, setDarkTheme] = useState(getThemeStatus() == "true" ? true : false);
-
-	useEffect(() => {
-		const setData = async () => {
-			try {
-				setLoading(true);
-				const { data } = await getCountries();
-				setCountries(data);
-			} catch (ex) {
-				setError("Sorry, something went wrong, please try refreshing the page later");
-			}
-			setLoading(false);
-		};
-		setData();
-	}, []);
 
 	useEffect(() => {
 		if (darkTheme) {
@@ -40,30 +22,16 @@ export default function App() {
 
 	return (
 		<Router>
-			<Header
-				darkTheme={darkTheme}
-				toggleTheme={() => setDarkTheme((prevTheme) => !prevTheme)}
-			/>
-			<Switch>
-				<Route
-					path="/country/:code"
-					render={(props) => (
-						<Country {...props} countries={countries} loading={loading} error={error} />
-					)}
+			<CountriesProvider>
+				<Header
+					darkTheme={darkTheme}
+					toggleTheme={() => setDarkTheme((prevTheme) => !prevTheme)}
 				/>
-				<Route
-					exact
-					path="/"
-					render={(props) => (
-						<AllCountries
-							{...props}
-							countries={countries}
-							loading={loading}
-							error={error}
-						/>
-					)}
-				/>
-			</Switch>
+				<Switch>
+					<Route path="/country/:code" component={Country} />
+					<Route exact path="/" component={AllCountries} />
+				</Switch>
+			</CountriesProvider>
 		</Router>
 	);
 }
