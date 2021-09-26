@@ -10,22 +10,20 @@ export default function Country({ match }) {
 	const { countries, loading, error } = useContext(CountriesContext);
 
 	const [country, setCountry] = useState({
-		flag: "",
-		name: "",
-		nativeName: "",
-		population: "",
+		flags: [],
+		name: {},
 		region: "",
 		subregion: "",
 		capital: "",
-		topLevelDomain: [],
-		currencies: [],
-		languages: [],
+		tld: [],
+		currencies: {},
+		languages: {},
 		borders: [],
 	});
 
 	//Find country will be used to get the country's data and to get the name of each border country
 	const findCountry = (code) => {
-		return countries.find((element) => element.alpha3Code === code.toUpperCase());
+		return countries.find((element) => element.cca3 === code.toUpperCase());
 	};
 
 	useEffect(() => {
@@ -33,19 +31,11 @@ export default function Country({ match }) {
 		setCountry(findCountry(match.params.code));
 	}, [countries, match.params.code]);
 
-	const {
-		flag,
-		name,
-		nativeName,
-		population,
-		region,
-		subregion,
-		capital,
-		topLevelDomain,
-		currencies,
-		languages,
-		borders,
-	} = country;
+	const { flags, name, region, subregion, capital, currencies, languages, tld, borders } =
+		country;
+
+	const currenciesArray = Object.keys(currencies);
+	const languagesArray = Object.keys(languages);
 
 	return error ? (
 		<p className="error-message">{error}</p>
@@ -64,22 +54,16 @@ export default function Country({ match }) {
 					<article className="country-article">
 						<section className="country-article__media">
 							<picture>
-								<img src={flag} alt={`${name}'s flag`} />
+								<img src={flags[0]} alt={`${name.common}'s flag`} />
 							</picture>
 						</section>
 						<section className="country-article__text">
-							<h2>{name}</h2>
+							<h2>{name.common}</h2>
 							<section className="country-article__text__desc-lists">
 								<dl className="desc-list">
 									<div className="desc-list__item">
-										<dt className="desc-list__item__term">Native Name:</dt>
-										<dd className="desc-list__item__detail">{nativeName}</dd>
-									</div>
-									<div className="desc-list__item">
-										<dt className="desc-list__item__term">Population:</dt>
-										<dd className="desc-list__item__detail">
-											{Number(population).toLocaleString()}
-										</dd>
+										<dt className="desc-list__item__term">Official Name:</dt>
+										<dd className="desc-list__item__detail">{name.official}</dd>
 									</div>
 									<div className="desc-list__item">
 										<dt className="desc-list__item__term">Region:</dt>
@@ -97,27 +81,25 @@ export default function Country({ match }) {
 								<dl className="desc-list">
 									<div className="desc-list__item">
 										<dt className="desc-list__item__term">Top Level Domain:</dt>
-										<dd className="desc-list__item__detail">
-											{topLevelDomain.join(" ")}
-										</dd>
+										<dd className="desc-list__item__detail">{tld.join(" ")}</dd>
 									</div>
 									<div className="desc-list__item">
 										<dt className="desc-list__item__term">Currencies:</dt>
 										<dd className="desc-list__item__detail">
-											{currencies.map((currencie, index) =>
-												index !== currencies.length - 1
-													? `${currencie.name},`
-													: currencie.name
+											{currenciesArray.map((item, index) =>
+												index !== currenciesArray.length - 1
+													? `${currencies[item].name}, `
+													: currencies[item].name
 											)}
 										</dd>
 									</div>
 									<div className="desc-list__item">
 										<dt className="desc-list__item__term">Languages:</dt>
 										<dd className="desc-list__item__detail">
-											{languages.map((language, index) =>
-												index !== languages.length - 1
-													? `${language.name},`
-													: language.name
+											{languagesArray.map((item, index) =>
+												index !== languagesArray.length - 1
+													? `${languages[item]}, `
+													: languages[item]
 											)}
 										</dd>
 									</div>
@@ -130,7 +112,7 @@ export default function Country({ match }) {
 								) : (
 									borders.map((border) => (
 										<Link key={uuidv4()} className="btn-link" to={`/country/${border}`}>
-											{findCountry(border).name}
+											{findCountry(border).name.common}
 										</Link>
 									))
 								)}

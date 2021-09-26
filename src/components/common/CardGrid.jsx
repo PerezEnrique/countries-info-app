@@ -10,7 +10,7 @@ export default function CardGrid({ loading, items, noItemMessage }) {
 			) : items.length < 1 ? (
 				<h2 className="card-grid__no-item-message">{noItemMessage}</h2>
 			) : (
-				items.map((item) => <CountryCard key={Number(item.numericCode)} country={item} />)
+				items.map((item) => <CountryCard key={Number(item.ccn3)} country={item} />)
 			)}
 		</main>
 	);

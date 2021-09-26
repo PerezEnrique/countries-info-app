@@ -29,13 +29,15 @@ export default function AllCountries() {
 	//filter by query when query hook state changes
 	useEffect(() => {
 		if (countries.length < 1) return;
-		if (query === "") return;
+		//if user cleaned the field we need to set filteredCountries to all Countries
+		//if the field was cleaned by the other filter it will return (other filter will handle setting filteredCountries to all countries)
+		if (query === "" && region !== "All") return;
 
 		setRegion("All"); //set filter by region to "all", to avoid user's confusion
 		let filteredCountries = [...countries];
 		filteredCountries = countries.filter((country) => {
 			const regex = new RegExp(query, "i");
-			return regex.test(country.name);
+			return regex.test(country.name.common);
 		});
 		setCountriesToDisplay(filteredCountries);
 	}, [countries, query]);
