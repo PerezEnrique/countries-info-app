@@ -9,7 +9,7 @@ function CountryCard({
 			<section className="card__head">
 				<Link to={`/country/${alpha3code}`}>
 					<picture className="card__head__img">
-						<img src={flags[0]} alt={`${name.common}'s flag image`} />
+						<img src={flags[0]} alt={`${name.common}'s flag`} />
 					</picture>
 				</Link>
 			</section>
