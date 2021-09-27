@@ -9,14 +9,7 @@ import Loader from "../components/common/Loader";
 export default function AllCountries() {
 	const { countries, loading, error } = useContext(CountriesContext);
 
-	const [regions, setRegions] = useState([
-		"All",
-		"Africa",
-		"Americas",
-		"Asia",
-		"Europe",
-		"Oceania",
-	]);
+	const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 	const [countriesToDisplay, setCountriesToDisplay] = useState([]);
 	const [query, setQuery] = useState("");
 	const [region, setRegion] = useState("All");
