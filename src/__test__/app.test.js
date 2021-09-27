@@ -18,17 +18,14 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("When app is mounted", () => {
-	it("must render the header with app logo and a theme switcher button", () => {
+	it("must render the header and one of the pages. A loader must appear while the data is being fetched.", async () => {
 		const header = screen.getByRole("banner");
+		const loader = screen.getByRole("status");
 		expect(header).toBeInTheDocument();
 		expect(within(header).getByText(/countries info$/i)).toBeInTheDocument();
 		expect(
 			within(header).getByRole("button", { name: /Dark mode/i })
 		).toBeInTheDocument();
-	});
-
-	it("must fetch the data and display it on one of the app pages. ", async () => {
-		const loader = screen.getByRole("status");
 		expect(loader).toBeInTheDocument();
 		await waitFor(() => {
 			expect(loader).not.toBeInTheDocument();

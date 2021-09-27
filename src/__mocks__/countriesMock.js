@@ -1,4 +1,4 @@
-export default [
+const countries = [
 	{
 		name: {
 			common: "Thailand",
@@ -126,7 +126,7 @@ export default [
 		},
 		latlng: [15.0, 100.0],
 		landlocked: false,
-		borders: ["MMR", "KHM", "LAO", "MYS"],
+		borders: ["LAO"],
 		area: 513120.0,
 		flag: "🇹🇭",
 		flags: [
@@ -142,6 +142,68 @@ export default [
 				f: "Thaïlandaise",
 				m: "Thaïlandais",
 			},
+		},
+	},
+	{
+		name: {
+			common: "Laos",
+			official: "Lao People's Democratic Republic",
+			nativeName: { lao: { official: "ສາທາລະນະ ຊາທິປະໄຕ ຄົນລາວ ຂອງ", common: "ສປປລາວ" } },
+		},
+		tld: [".la"],
+		cca2: "LA",
+		ccn3: "418",
+		cca3: "LAO",
+		cioc: "LAO",
+		independent: true,
+		status: "officially-assigned",
+		unMember: true,
+		currencies: { LAK: { name: "Lao kip", symbol: "₭" } },
+		idd: { root: "+8", suffixes: ["56"] },
+		capital: ["Vientiane"],
+		altSpellings: [
+			"LA",
+			"Lao",
+			"Lao People's Democratic Republic",
+			"Sathalanalat Paxathipatai Paxaxon Lao",
+		],
+		region: "Asia",
+		subregion: "South-Eastern Asia",
+		languages: { lao: "Lao" },
+		translations: {
+			ces: { official: "Laoská lidově demokratická republika", common: "Laos" },
+			deu: { official: "Demokratische Volksrepublik Laos", common: "Laos" },
+			est: { official: "Laose Demokraatlik Rahvavabariik", common: "Laos" },
+			fin: { official: "Laosin demokraattinen kansantasavalta", common: "Laos" },
+			fra: { official: "République démocratique populaire lao", common: "Laos" },
+			hrv: { official: "Narodna Demokratska Republika", common: "Laos" },
+			hun: { official: "Laoszi Népi Demokratikus Köztársaság", common: "Laosz" },
+			ita: { official: "Repubblica democratica popolare del Laos", common: "Laos" },
+			jpn: { official: "ラオス人民民主共和国", common: "ラオス人民民主共和国" },
+			kor: { official: "라오 인민 민주 공화국", common: "라오스" },
+			nld: { official: "Lao Democratische Volksrepubliek", common: "Laos" },
+			per: { official: "جمهوری دموکراتیک خلق لائوس", common: "لائوس" },
+			pol: { official: "Laotańska Republika Ludowo-Demokratyczna", common: "Laos" },
+			por: { official: "Laos, República Democrática", common: "Laos" },
+			rus: { official: "Лаосская Народно-Демократическая Республика", common: "Лаос" },
+			slk: { official: "Laoská ľudovodemokratická republika", common: "Laos" },
+			spa: { official: "República Democrática Popular Lao", common: "Laos" },
+			swe: { official: "Demokratiska folkrepubliken Laos", common: "Laos" },
+			urd: { official: "عوامی جمہوری جمہوریہ لاؤ", common: "لاؤس" },
+			zho: { official: "老挝人民民主共和国", common: "老挝" },
+		},
+		latlng: [18.0, 105.0],
+		landlocked: true,
+		borders: ["MMR", "KHM", "CHN", "THA", "VNM"],
+		area: 236800.0,
+		flag: "\uD83C\uDDF1\uD83C\uDDE6",
+		flags: [
+			"https://restcountries.com/data/lao.svg",
+			"https://restcountries.com/data/png/lao.png",
+		],
+		demonyms: {
+			eng: { f: "Laotian", m: "Laotian" },
+			fra: { f: "Laotienne", m: "Laotien" },
 		},
 	},
 	{
@@ -273,7 +335,7 @@ export default [
 		},
 		latlng: [-10.0, -55.0],
 		landlocked: false,
-		borders: ["ARG", "BOL", "COL", "GUF", "GUY", "PRY", "PER", "SUR", "URY", "VEN"],
+		borders: [],
 		area: 8515767.0,
 		flag: "🇧🇷",
 		flags: [
@@ -705,7 +767,7 @@ export default [
 		},
 		latlng: [51.0, 9.0],
 		landlocked: false,
-		borders: ["AUT", "BEL", "CZE", "DNK", "FRA", "LUX", "NLD", "POL", "CHE"],
+		borders: [],
 		area: 357114.0,
 		flag: "🇩🇪",
 		flags: [
@@ -724,3 +786,16 @@ export default [
 		},
 	},
 ];
+
+export default countries;
+
+export const getCountriesByName = (name) => {
+	return countries.filter((country) => {
+		const regex = new RegExp(name, "i");
+		return regex.test(country.name.common);
+	});
+};
+
+export const getCountriesByRegion = (region) => {
+	return countries.filter((country) => country.region === region);
+};
