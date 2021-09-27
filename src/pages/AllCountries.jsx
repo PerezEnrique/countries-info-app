@@ -4,6 +4,7 @@ import { IconContext } from "react-icons";
 import SearchBox from "../components/common/SearchBox";
 import Filter from "../components/common/Filter";
 import CardGrid from "../components/common/CardGrid";
+import Loader from "../components/common/Loader";
 
 export default function AllCountries() {
 	const { countries, loading, error } = useContext(CountriesContext);
@@ -64,6 +65,8 @@ export default function AllCountries() {
 
 	return error ? (
 		<p className="error-message">{error}</p>
+	) : loading ? (
+		<Loader />
 	) : (
 		<React.Fragment>
 			<section className="filters-section">
@@ -84,7 +87,6 @@ export default function AllCountries() {
 				</IconContext.Provider>
 			</section>
 			<CardGrid
-				loading={loading}
 				items={countriesToDisplay}
 				noItemMessage={"Sorry, your search did not match any country :("}
 			/>
