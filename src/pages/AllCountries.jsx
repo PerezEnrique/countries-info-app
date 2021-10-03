@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import useFilters from "../hooks/useFilters";
 import CountriesContext from "../contexts/CountriesContext";
 import { IconContext } from "react-icons";
 import SearchBox from "../components/common/SearchBox";
@@ -7,54 +8,10 @@ import CardGrid from "../components/common/CardGrid";
 import Loader from "../components/common/Loader";
 
 export default function AllCountries() {
-	const { countries, loading, error } = useContext(CountriesContext);
+	const { loading, error } = useContext(CountriesContext);
+	const { countriesToDisplay, query, setQuery, region, setRegion } = useFilters();
 
 	const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
-	const [countriesToDisplay, setCountriesToDisplay] = useState([]);
-	const [query, setQuery] = useState("");
-	const [region, setRegion] = useState("All");
-
-	//set countries to display when countries prop changes
-	useEffect(() => {
-		if (countries.length < 1) return;
-		setCountriesToDisplay([...countries]);
-	}, [countries]);
-
-	//filter by query when query hook state changes
-	useEffect(() => {
-		if (countries.length < 1) return;
-		//if user cleaned the field we need to set filteredCountries to all Countries
-		//if the field was cleaned by the other filter it will return (other filter will handle setting filteredCountries to all countries)
-		if (query === "" && region !== "All") return;
-
-		setRegion("All"); //set filter by region to "all", to avoid user's confusion
-		let filteredCountries = [...countries];
-		filteredCountries = countries.filter((country) => {
-			const regex = new RegExp(query, "i");
-			return regex.test(country.name.common);
-		});
-		setCountriesToDisplay(filteredCountries);
-	}, [countries, query]);
-
-	//filter by region
-	useEffect(() => {
-		if (countries.length < 1) return;
-
-		//when filter is set to "all"... T
-		//his is specially important for cases when user re-sets filter to "all" after having filtered by something else before
-		if (region === "All") {
-			let filteredCountries = [...countries];
-			setCountriesToDisplay(filteredCountries);
-			return;
-		}
-
-		setQuery(""); //cleans the query field, to avoid user's confusion
-		let filteredCountries = [...countries];
-		filteredCountries = countries.filter((country) => {
-			return country.region === region;
-		});
-		setCountriesToDisplay(filteredCountries);
-	}, [countries, region]);
 
 	return error ? (
 		<p className="error-message">{error}</p>
