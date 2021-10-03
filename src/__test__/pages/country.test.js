@@ -10,13 +10,13 @@ const testingCountry = getCountriesByName("thailand")[0];
 beforeEach(() => {
 	window.history.pushState({}, "", `/country/${testingCountry.cca3}`);
 	render(
-		<Router>
-			<CountriesCountext.Provider
-				value={{ countries: countriesMock, loading: false, error: "" }}
-			>
+		<CountriesCountext.Provider
+			value={{ countries: countriesMock, loading: false, error: "" }}
+		>
+			<Router>
 				<Route path="/country/:code" component={Country} />
-			</CountriesCountext.Provider>
-		</Router>
+			</Router>
+		</CountriesCountext.Provider>
 	);
 });
 

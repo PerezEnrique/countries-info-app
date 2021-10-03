@@ -10,13 +10,13 @@ import countriesMock, {
 
 beforeEach(() =>
 	render(
-		<Router>
-			<CountriesCountext.Provider
-				value={{ countries: countriesMock, loading: false, error: "" }}
-			>
+		<CountriesCountext.Provider
+			value={{ countries: countriesMock, loading: false, error: "" }}
+		>
+			<Router>
 				<AllCountries />
-			</CountriesCountext.Provider>
-		</Router>
+			</Router>
+		</CountriesCountext.Provider>
 	)
 );
 
@@ -55,9 +55,10 @@ describe("When page is mounted", () => {
 		const countrysFlag = within(card).getByRole("img", {
 			name: `${name.common}'s flag`,
 		});
+		const anchorOnHeading = countrysName.children[0];
 
 		expect(countrysName).toBeInTheDocument();
-		expect(countrysName.children[0]).toHaveAttribute("href", linkToCountry);
+		expect(anchorOnHeading).toHaveAttribute("href", linkToCountry);
 		expect(countrysFlag).toBeInTheDocument();
 		expect(countrysFlag).toHaveAttribute("src", flags[0]);
 		expect(countrysFlag.closest("a")).toHaveAttribute("href", linkToCountry);

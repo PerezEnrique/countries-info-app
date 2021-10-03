@@ -11,14 +11,13 @@ const server = setupServer(
 
 beforeAll(() => server.listen());
 
-beforeEach(() => render(<App />));
-
 afterEach(() => server.resetHandlers());
 
 afterAll(() => server.close());
 
 describe("When app is mounted", () => {
 	it("must render the header and one of the pages. A loader must appear while the data is being fetched.", async () => {
+		render(<App />);
 		const header = screen.getByRole("banner");
 		const loader = screen.getByRole("status");
 		expect(header).toBeInTheDocument();
@@ -37,7 +36,6 @@ describe("When app is mounted", () => {
 describe("When app is mounted but the fetch request is not successful", () => {
 	it("must display the error message: 'Sorry, something went wrong, please try refreshing the page later'", async () => {
 		server.use(rest.get("/all", (req, res, ctx) => res(ctx.status(500))));
-
 		render(<App />);
 
 		await waitFor(() => {
