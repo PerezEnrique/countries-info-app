@@ -799,3 +799,15 @@ export const getCountriesByName = (name) => {
 export const getCountriesByRegion = (region) => {
 	return countries.filter((country) => country.region === region);
 };
+
+export const getRegions = () => {
+	const regionsSet = new Set();
+
+	countries.forEach((country) => {
+		regionsSet.add(country.region);
+	});
+
+	const regionsArray = Array.from(regionsSet);
+	regionsArray.unshift("All");
+	return regionsArray;
+};

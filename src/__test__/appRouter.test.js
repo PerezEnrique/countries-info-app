@@ -2,14 +2,19 @@ import React from "react";
 import { screen, render, within, fireEvent } from "@testing-library/react";
 import AppRouter from "../AppRouter";
 import CountriesCountext from "../contexts/CountriesContext";
-import countriesMock from "../__mocks__/countriesMock.js";
+import countriesMock, { getRegions } from "../__mocks__/countriesMock.js";
 
 describe("When user goes to '/'", () => {
 	it("it must mount 'All Countries' page", () => {
 		window.history.pushState({}, "", `/`);
 		render(
 			<CountriesCountext.Provider
-				value={{ countries: countriesMock, loading: false, error: "" }}
+				value={{
+					countries: countriesMock,
+					regions: getRegions(),
+					loading: false,
+					error: "",
+				}}
 			>
 				<AppRouter />
 			</CountriesCountext.Provider>
@@ -24,7 +29,12 @@ describe("When user is on All countries components and clicks on one of the link
 		window.history.pushState({}, "", `/`);
 		render(
 			<CountriesCountext.Provider
-				value={{ countries: countriesMock, loading: false, error: "" }}
+				value={{
+					countries: countriesMock,
+					regions: getRegions(),
+					loading: false,
+					error: "",
+				}}
 			>
 				<AppRouter />
 			</CountriesCountext.Provider>
@@ -62,7 +72,12 @@ describe("When user goes to '/country/:code'", () => {
 		window.history.pushState({}, "", `/country/${cca3}`);
 		render(
 			<CountriesCountext.Provider
-				value={{ countries: countriesMock, loading: false, error: "" }}
+				value={{
+					countries: countriesMock,
+					regions: getRegions(),
+					loading: false,
+					error: "",
+				}}
 			>
 				<AppRouter />
 			</CountriesCountext.Provider>

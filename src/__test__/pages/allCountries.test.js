@@ -6,19 +6,25 @@ import CountriesCountext from "../../contexts/CountriesContext";
 import countriesMock, {
 	getCountriesByName,
 	getCountriesByRegion,
+	getRegions,
 } from "../../__mocks__/countriesMock";
 
-beforeEach(() =>
+beforeEach(() => {
 	render(
 		<CountriesCountext.Provider
-			value={{ countries: countriesMock, loading: false, error: "" }}
+			value={{
+				countries: countriesMock,
+				regions: getRegions(),
+				loading: false,
+				error: "",
+			}}
 		>
 			<Router>
 				<AllCountries />
 			</Router>
 		</CountriesCountext.Provider>
-	)
-);
+	);
+});
 
 describe("When page is mounted", () => {
 	it("must display a searchbox", () => {
@@ -26,16 +32,18 @@ describe("When page is mounted", () => {
 		expect(screen.getByRole("searchbox")).toBeInTheDocument();
 	});
 
-	it("must display a filter by region select with options: All, Africa, Americas, Asia, Europe and Oceania", () => {
+	it("must display a filter by region select with options: All, Asia, Americas, Oceania, Africas, Europe", () => {
 		const listbox = screen.getByRole("listbox");
 		const options = within(listbox).getAllByRole("option");
 		expect(listbox).toBeInTheDocument();
+
+		//This is to test if the app redenrs the options in the expected order (based on the mock countries we have)
 		expect(options[0]).toHaveTextContent(/All$/i);
-		expect(options[1]).toHaveTextContent(/Africa$/i);
+		expect(options[1]).toHaveTextContent(/Asia$/i);
 		expect(options[2]).toHaveTextContent(/Americas$/i);
-		expect(options[3]).toHaveTextContent(/Asia$/i);
-		expect(options[4]).toHaveTextContent(/Europe$/i);
-		expect(options[5]).toHaveTextContent(/Oceania$/i);
+		expect(options[3]).toHaveTextContent(/Oceania$/i);
+		expect(options[4]).toHaveTextContent(/Africa$/i);
+		expect(options[5]).toHaveTextContent(/Europe$/i);
 	});
 
 	it("must display all data items on Country Card components. Each one of these cards must have article role", () => {
@@ -87,17 +95,22 @@ describe("When page is mounted", () => {
 
 describe("When the user performs a query", () => {
 	it("must reset the select filter to all", () => {
-		//click on africa
-		fireEvent.click(screen.getAllByRole("option")[1]);
+		//click on test option
+		const testOption = screen.getAllByRole("option")[1];
+		fireEvent.click(testOption);
 
-		//button must have value africa
-		expect(screen.getByRole("button", { name: /africa/i })).toBeInTheDocument();
+		//button must have test option value
+		expect(
+			screen.getByRole("button", { name: testOption.textContent })
+		).toBeInTheDocument();
 
 		//type something on searchbox
 		fireEvent.change(screen.getByRole("searchbox"), { target: { value: "a" } });
 
 		//button should change its name to Filter by region which means select has been reset to "All"
-		expect(screen.queryByRole("button", { name: /africa/i })).not.toBeInTheDocument();
+		expect(
+			screen.queryByRole("button", { name: testOption.textContent })
+		).not.toBeInTheDocument();
 		expect(screen.getByRole("button", { name: /Filter by region/i })).toBeInTheDocument();
 	});
 });
@@ -109,7 +122,7 @@ describe("When user performs a query without results", () => {
 		expect(screen.getAllByRole("article")).toHaveLength(countriesMock.length);
 
 		fireEvent.change(screen.getByRole("searchbox"), {
-			target: { value: "this will not match any testing country" },
+			target: { value: "this will not match any test country" },
 		});
 
 		expect(screen.queryAllByRole("article")).toHaveLength(0);
@@ -125,7 +138,7 @@ describe("When user performs a query with results", () => {
 		const testQuery = "thailand";
 		const expectedCountry = getCountriesByName(testQuery)[0];
 
-		//type something that match one of the testing countries
+		//type something that match one of the test countries
 		fireEvent.change(searchInput, { target: { value: testQuery } });
 
 		//matching country must be present as a card component
@@ -147,7 +160,7 @@ describe("When user selects a region to filter by", () => {
 		//searchbox must correctly display the typed query
 		expect(searchInput).toHaveValue("a");
 
-		//select africa region
+		//select an option
 		fireEvent.click(screen.getAllByRole("option")[1]);
 
 		//searchbox must be clean
@@ -160,7 +173,7 @@ describe("When user selects a region to filter by", () => {
 		const expectedCountry = getCountriesByRegion(testOption.textContent)[0];
 		const notExpectedCountry = getCountriesByRegion(options[2].textContent)[0];
 
-		//click on africa
+		//click on test option
 		fireEvent.click(testOption);
 
 		//matching country must be present as a card component
@@ -177,7 +190,7 @@ describe("When user selects a region to filter by", () => {
 	});
 
 	it("must display all countries if user resets select to 'All'", () => {
-		//click on africa
+		//click on an option
 		fireEvent.click(screen.getAllByRole("option")[1]);
 		expect(screen.queryAllByRole("article")).not.toHaveLength(countriesMock.length);
 
