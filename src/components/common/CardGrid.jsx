@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 export default function CardGrid({ items, noItemMessage }) {
 	return (
 		<main className="card-grid">
-			{items.length < 1 ? (
+			{!items || items.length < 1 ? (
 				<h2 className="card-grid__no-item-message">{noItemMessage}</h2>
 			) : (
 				items.map((item) => <CountryCard key={uuidv4()} country={item} />)
