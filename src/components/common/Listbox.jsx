@@ -63,6 +63,7 @@ export default function Filter({ items, selectedItem, handleSelection, criterion
 
 	const handleClickOutside = (e) => {
 		//We verify first is the clicks event happened inside the filter component, those clicks shouldn't collapse our listbox
+		if (!filter.current) return;
 		if (!filter.current.contains(e.target)) setShowOptions(false);
 	};
 
