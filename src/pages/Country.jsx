@@ -107,7 +107,7 @@ export default function Country({ match }) {
 							</section>
 							<section className="country-article__text__border-countries">
 								<h3>Border Countries:</h3>
-								{borders.length < 1 ? (
+								{!borders || borders.length < 1 ? (
 									<span>No border countries</span>
 								) : (
 									borders.map((border) => (
