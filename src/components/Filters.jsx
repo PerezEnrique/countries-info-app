@@ -5,8 +5,7 @@ import SearchBox from "../components/common/SearchBox";
 import Listbox from "../components/common/Listbox";
 
 export default function Filters({ setCountriesToDisplay }) {
-	const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
-	const { countries } = useContext(CountriesContext);
+	const { countries, regions } = useContext(CountriesContext);
 	const [query, setQuery] = useState("");
 	const [region, setRegion] = useState("All");
 
@@ -19,11 +18,14 @@ export default function Filters({ setCountriesToDisplay }) {
 	//filter by query when query hook state changes
 	useEffect(() => {
 		if (countries.length < 1) return;
+
 		//if user cleaned the field we need to set filteredCountries to all Countries
 		//but if the field was cleaned by user selecting an option, other than all, in select by region filter, then we must return.
 		if (query === "" && region !== "All") return;
 
-		setRegion("All"); //set filter by region to "all", to avoid user's confusion
+		//set filter by region to "all", to avoid user's confusion
+		setRegion("All");
+
 		let filteredCountries = [...countries];
 		filteredCountries = countries.filter((country) => {
 			const regex = new RegExp(query, "i");
@@ -43,7 +45,9 @@ export default function Filters({ setCountriesToDisplay }) {
 			return;
 		}
 
-		setQuery(""); //cleans the query field, to avoid user's confusion
+		//cleans the query field, to avoid user's confusion
+		setQuery("");
+
 		let filteredCountries = [...countries];
 		filteredCountries = countries.filter((country) => {
 			return country.region === region;
