@@ -1,9 +1,7 @@
-const themeKey = "dark-theme";
-
-export function getThemeStatus() {
+export function getThemeStatus(themeKey) {
 	return localStorage.getItem(themeKey);
 }
 
-export function setThemeStatus(status) {
+export function setThemeStatus(themeKey, status) {
 	localStorage.setItem(themeKey, status);
 }
