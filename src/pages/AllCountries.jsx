@@ -3,7 +3,7 @@ import useFilters from "../hooks/useFilters";
 import CountriesContext from "../contexts/CountriesContext";
 import { IconContext } from "react-icons";
 import SearchBox from "../components/common/SearchBox";
-import Filter from "../components/common/Filter";
+import Listbox from "../components/common/Listbox";
 import CardGrid from "../components/common/CardGrid";
 import Loader from "../components/common/Loader";
 
@@ -28,7 +28,7 @@ export default function AllCountries() {
 					/>
 				</IconContext.Provider>
 				<IconContext.Provider value={{ className: "filter__dropdown__icon" }}>
-					<Filter
+					<Listbox
 						items={regions}
 						selectedItem={region}
 						handleSelection={setRegion}
