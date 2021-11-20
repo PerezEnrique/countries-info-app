@@ -5,13 +5,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
 	entry: "./src/index.js",
 	output: {
+		filename: "[name].[contenthash].js",
 		path: path.resolve(__dirname, "dist"),
-		filename: "bundle.js",
-		publicPath: "/",
-	},
-	mode: "development",
-	devServer: {
-		historyApiFallback: true,
+		assetModuleFilename: "assets/[hash][ext]",
+		clean: true,
 	},
 	resolve: {
 		extensions: [".js", ".jsx"],
@@ -26,18 +23,8 @@ module.exports = {
 				},
 			},
 			{
-				test: /\.html$/i,
-				loader: "html-loader",
-			},
-			{
 				test: /\.s[ac]ss$/i,
-				use: [
-					MiniCssExtractPlugin.loader,
-					// Translates CSS into CommonJS
-					"css-loader",
-					// Compiles Sass to CSS
-					"sass-loader",
-				],
+				use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
 			},
 			{
 				test: /\.(png|svg|jpg)$/i,
@@ -55,7 +42,7 @@ module.exports = {
 			filename: "./index.html",
 		}),
 		new MiniCssExtractPlugin({
-			filename: "assets/styles/[name].css",
+			filename: "assets/styles/[name].[contenthash].css",
 		}),
 	],
 };
