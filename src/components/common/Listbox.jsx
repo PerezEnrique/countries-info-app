@@ -64,6 +64,12 @@ export default function Filter({ items, selectedItem, handleSelection, criterion
 	const handleClickOutside = (e) => {
 		//We verify first is the clicks event happened inside the filter component, those clicks shouldn't collapse our listbox
 		if (!filter.current) return;
+
+		//icon is not considered to be nested on the filter__dropdown so the setShowOptions will be set to false
+		//We need another check to return if the click ocurred on the icon
+		const clickOcurredOnDropdownIcon = e.target.closest(".filter__dropdown__icon"); //this will be null or truthy
+		if (!!clickOcurredOnDropdownIcon) return;
+
 		if (!filter.current.contains(e.target)) setShowOptions(false);
 	};
 
