@@ -98,7 +98,11 @@ export default function Filter({ items, selectedItem, handleSelection, criterion
 				aria-expanded={!showOptions ? undefined : "true"} //passing undefined here is the same as not including it at all. This way we can create something closer to Collapsible Dropdown Listbox Example by W3.org
 			>
 				{selectedItem === "All" ? `Filter by ${criterion}` : selectedItem}
-				{!showOptions ? <RiArrowDropDownLine /> : <RiArrowDropUpLine />}
+				{!showOptions ? (
+					<RiArrowDropDownLine aria-hidden="true" />
+				) : (
+					<RiArrowDropUpLine aria-hidden="true" />
+				)}
 			</button>
 			<ul
 				className={
