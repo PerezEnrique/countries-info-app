@@ -7,8 +7,12 @@ export default function Header({ darkTheme, toggleTheme }) {
 		<IconContext.Provider value={{ className: "header__btn__icon" }}>
 			<header className="header">
 				<h1>Countries info</h1>
-				<button className="header__btn" onClick={toggleTheme}>
-					{!darkTheme ? <IoMoonOutline /> : <IoMoonSharp />}
+				<button className="header__btn" onClick={toggleTheme} aria-pressed={darkTheme}>
+					{!darkTheme ? (
+						<IoMoonOutline aria-hidden="true" />
+					) : (
+						<IoMoonSharp aria-hidden="true" />
+					)}
 					Dark mode
 				</button>
 			</header>

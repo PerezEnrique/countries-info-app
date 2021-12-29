@@ -13,12 +13,12 @@ export default function AllCountries() {
 	) : loading ? (
 		<Loader />
 	) : (
-		<React.Fragment>
+		<main>
 			<Filters setCountriesToDisplay={setCountriesToDisplay} />
 			<CardGrid
 				items={countriesToDisplay}
 				noItemMessage={"Sorry, your search did not match any country :("}
 			/>
-		</React.Fragment>
+		</main>
 	);
 }
