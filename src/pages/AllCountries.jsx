@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import CountriesContext from "../contexts/CountriesContext";
+import { v4 as uuidv4 } from "uuid";
 import { IconContext } from "react-icons";
 import SearchBox from "../components/common/SearchBox";
 import Listbox from "../components/common/Listbox";
 import CardGrid from "../components/common/CardGrid";
+import CountryCard from "../components/CountryCard";
 import Loader from "../components/common/Loader";
 
 export default function AllCountries() {
@@ -24,15 +26,12 @@ export default function AllCountries() {
 
 	useEffect(() => {
 		let filteredCountries = [...countries];
-		console.log("gen")
 		if(query){
-			console.log("query")
 			filteredCountries = countries.filter((country) => {
 				const regex = new RegExp(query, "i");
 				return regex.test(country.name.common);
 			});
 		}else if(selectedRegion !== "All"){
-			console.log("select")
 			filteredCountries = countries.filter((country) => {
 				return country.region === selectedRegion;
 			});
@@ -66,8 +65,12 @@ export default function AllCountries() {
 			</section>
 			<CardGrid
 				items={countriesToDisplay}
-				noItemMessage={"Sorry, your search did not match any country :("}
-			/>
+				onNoItem={
+					<h2 className="card-grid__no-item-message">Sorry, your search did not match any country :(</h2>
+				}
+			>
+				{countriesToDisplay.map((item) => <CountryCard key={uuidv4()} country={item} />)}
+			</CardGrid>
 		</main>
 	);
 }
