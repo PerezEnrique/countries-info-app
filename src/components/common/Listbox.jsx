@@ -61,14 +61,13 @@ export default function Filter({ items, selectedItem, handleSelection, criterion
 		}
 	};
 
+	//We need to verify if the clicks event happened inside the filter component, those clicks shouldn't collapse our listbox
 	const handleClickOutside = (e) => {
-		//We verify first is the clicks event happened inside the filter component, those clicks shouldn't collapse our listbox
-		if (!filter.current) return;
-
-		//icon is not considered to be nested on the filter__dropdown so the setShowOptions will be set to false
-		//We need another check to return if the click ocurred on the icon
-		const clickOcurredOnDropdownIcon = e.target.closest(".filter__dropdown__icon"); //this will be null or truthy
-		if (!!clickOcurredOnDropdownIcon) return;
+		//JavaScript doesn't consider that the dropwdown button icon is nested inside the filter.
+		//So the next step of this method will prevent that those clicks expand the dropdown when it's collapsed
+		//To avoid that will check if click happended on that icon.
+		const clickOcurredOnDropdownIcon = e.target.closest(".filter__dropdown__icon"); //if truty, the click happened on icon
+		if (clickOcurredOnDropdownIcon) return;
 
 		if (!filter.current.contains(e.target)) setShowOptions(false);
 	};
@@ -85,6 +84,7 @@ export default function Filter({ items, selectedItem, handleSelection, criterion
 			document.removeEventListener("click", handleClickOutside);
 		};
 	}, []);
+
 
 	return (
 		<div className="filter" ref={filter}>
