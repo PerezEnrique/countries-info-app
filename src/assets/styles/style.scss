@@ -262,10 +262,6 @@ dd {
 	}
 
 	&__text {
-		& h2 {
-			font-size: 1.5rem;
-		}
-
 		&__desc-lists {
 			& .desc-list {
 				font-size: 0.9rem;
@@ -294,7 +290,18 @@ dd {
 	}
 }
 
+//NOT FOUND PAGE
+.not-found-page {
+	width: 90%;
+	max-width: var(--content-max-width);
+	margin: 0 auto;
+}
+
 //OTHERS
+.main-heading {
+	font-size: 1.5rem;
+}
+
 .heading-link {
 	text-decoration: none;
 	color: var(--primary-text);

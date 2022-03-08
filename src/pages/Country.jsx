@@ -58,7 +58,7 @@ export default function Country({ match }) {
 							</picture>
 						</section>
 						<section className="country-article__text">
-							<h2>{name.common}</h2>
+							<h2 className="main-heading">{name.common}</h2>
 							<section className="country-article__text__desc-lists">
 								<dl className="desc-list">
 									<div className="desc-list__item">
