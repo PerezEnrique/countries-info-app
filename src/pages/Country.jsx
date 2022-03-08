@@ -7,7 +7,7 @@ import Loader from "../components/common/Loader";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Country({ match }) {
-	const { countries, loading, error } = useContext(CountriesContext);
+	const { countries, loading, error, getSingleCountry } = useContext(CountriesContext);
 
 	const [country, setCountry] = useState({
 		flags: [],
@@ -21,14 +21,12 @@ export default function Country({ match }) {
 		borders: [],
 	});
 
-	//Find country will be used to get the country's data and to get the name of each border country
-	const findCountry = (code) => {
-		return countries.find((element) => element.cca3 === code.toUpperCase());
-	};
-
 	useEffect(() => {
 		if (countries.length < 1) return;
-		setCountry(findCountry(match.params.code));
+		const singleCountry = getSingleCountry(match.params.code);
+		if(!singleCountry) return;
+
+		setCountry(singleCountry);
 	}, [countries, match.params.code]);
 
 	const { flags, name, region, subregion, capital, currencies, languages, tld, borders } =
@@ -112,7 +110,7 @@ export default function Country({ match }) {
 								) : (
 									borders.map((border) => (
 										<Link key={uuidv4()} className="btn-link" to={`/country/${border}`}>
-											{findCountry(border).name.common}
+											{getSingleCountry(border).name.common}
 										</Link>
 									))
 								)}

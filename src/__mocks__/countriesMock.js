@@ -811,3 +811,9 @@ export const getRegions = () => {
 	regionsArray.unshift("All");
 	return regionsArray;
 };
+
+export const getSingleCountry = (code) => {
+	const country = countries?.find((element) => element.cca3 === code.toUpperCase());
+	if (!country) return setError("Sorry, we couldn't find a country with the code provided");
+	return country;
+}

@@ -7,6 +7,7 @@ import countriesMock, {
 	getCountriesByName,
 	getCountriesByRegion,
 	getRegions,
+	getSingleCountry,
 } from "../../__mocks__/countriesMock";
 
 beforeEach(() => {
@@ -17,6 +18,7 @@ beforeEach(() => {
 				regions: getRegions(),
 				loading: false,
 				error: "",
+				getSingleCountry: getSingleCountry
 			}}
 		>
 			<Router>

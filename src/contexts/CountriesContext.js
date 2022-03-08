@@ -37,11 +37,18 @@ export function CountriesProvider({ children }) {
 		return regionsArray;
 	};
 
+	const getSingleCountry = (code) => {
+		const country = countries?.find((element) => element.cca3 === code.toUpperCase());
+		if (!country) return setError("Sorry, we couldn't find a country with the code provided");
+		return country;
+	}
+
 	const providerValue = {
 		countries,
 		regions,
 		loading,
 		error,
+		getSingleCountry
 	};
 
 	return (

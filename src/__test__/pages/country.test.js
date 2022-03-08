@@ -3,7 +3,7 @@ import { screen, render, within } from "@testing-library/react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import CountriesCountext from "../../contexts/CountriesContext";
 import Country from "../../pages/Country";
-import countriesMock, { getCountriesByName } from "../../__mocks__/countriesMock";
+import countriesMock, { getCountriesByName, getSingleCountry } from "../../__mocks__/countriesMock";
 
 const testingCountry = getCountriesByName("thailand")[0];
 
@@ -11,7 +11,7 @@ beforeEach(() => {
 	window.history.pushState({}, "", `/country/${testingCountry.cca3}`);
 	render(
 		<CountriesCountext.Provider
-			value={{ countries: countriesMock, loading: false, error: "" }}
+			value={{ countries: countriesMock, loading: false, error: "", getSingleCountry: getSingleCountry }}
 		>
 			<Router>
 				<Route path="/country/:code" component={Country} />

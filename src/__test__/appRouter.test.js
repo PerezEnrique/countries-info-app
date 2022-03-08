@@ -2,7 +2,7 @@ import React from "react";
 import { screen, render, within, fireEvent } from "@testing-library/react";
 import AppRouter from "../AppRouter";
 import CountriesCountext from "../contexts/CountriesContext";
-import countriesMock, { getRegions } from "../__mocks__/countriesMock.js";
+import countriesMock, { getRegions, getSingleCountry } from "../__mocks__/countriesMock.js";
 
 describe("When user goes to '/'", () => {
 	it("it must mount 'All Countries' page", () => {
@@ -14,6 +14,7 @@ describe("When user goes to '/'", () => {
 					regions: getRegions(),
 					loading: false,
 					error: "",
+					getSingleCountry: getSingleCountry
 				}}
 			>
 				<AppRouter />
@@ -34,6 +35,7 @@ describe("When user is on All countries components and clicks on one of the link
 					regions: getRegions(),
 					loading: false,
 					error: "",
+					getSingleCountry: getSingleCountry
 				}}
 			>
 				<AppRouter />
@@ -77,6 +79,7 @@ describe("When user goes to '/country/:code'", () => {
 					regions: getRegions(),
 					loading: false,
 					error: "",
+					getSingleCountry: getSingleCountry
 				}}
 			>
 				<AppRouter />
